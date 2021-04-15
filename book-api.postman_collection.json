@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "95d63d54-f170-403c-b14e-1a9ecc519321",
+		"name": "book-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8081/api/v1/books/authors/Noam Chomsky-Michel Foucault-John Rajchman",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/books/authors/Noam Chomsky-Michel Foucault-John Rajchman",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"authors",
+						"Noam Chomsky-Michel Foucault-John Rajchman"
+					]
+				},
+				"description": "get books by author"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/v1/books/book-name/The Chomsky-Foucault Debate: On Human Nature",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/books/book-name/The Chomsky-Foucault Debate: On Human Nature",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"books",
+						"book-name",
+						"The Chomsky-Foucault Debate: On Human Nature"
+					]
+				},
+				"description": "get books by bookname"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/v1/book/isbn/1595581340",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/book/isbn/1595581340",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"book",
+						"isbn",
+						"1595581340"
+					]
+				},
+				"description": "get book by isbn"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8081/api/v1/book/isbn/1595581340",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/book/isbn/1595581340",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"book",
+						"isbn",
+						"1595581340"
+					]
+				},
+				"description": "delete book by isbn"
+			},
+			"response": []
+		}
+	]
+}
