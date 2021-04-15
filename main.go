@@ -1,11 +1,11 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
+	_ "github.com/gorilla/mux"
 	"log"
 	"net/http"
 )
-
-type server struct{}
 
 func home(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -29,6 +29,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/", home)
-	log.Fatal(http.ListenAndServe(":8082", nil))
+	r := mux.NewRouter()
+	r.HandleFunc("/", home)
+	log.Fatal(http.ListenAndServe(":8082", r))
 }
