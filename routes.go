@@ -2,8 +2,10 @@ package main
 
 import (
 	"api-test/loader"
+	"bytes"
 	"encoding/json"
 	"github.com/gorilla/mux"
+	"log"
 	"net/http"
 	"strconv"
 )
@@ -31,19 +33,43 @@ func searchByISBN(w http.ResponseWriter, r *http.Request) {
 }
 
 func searchByAuthor(w http.ResponseWriter, r *http.Request) {
+	log.Println("1 Start Tracing in SearchByAuthor Method")
+
 	pathParams := mux.Vars(r)
+	log.Println("2 get query params:", pathParams)
+
 	w.Header().Set("Content-Type", "application/json")
 	ratingOver, ratingBelow, err := getRatingParams(r)
+	log.Println("3 get rating params:", ratingOver, ratingBelow)
+
 	limit, err := getLimitParam(r)
+	log.Println("4 get limit params:", limit)
+
 	skip, err := getSkipParam(r)
+	log.Println("5 get skip params:", skip)
+
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(`{"error": "invalid datatype for parameter"}`))
+		log.Println("End Tracing in SearchByAuthor Method in skip")
 		return
 	}
+
 	if val, ok := pathParams["author"]; ok {
 		data := *books.SearchAuthor(val, ratingOver, ratingBelow, limit, skip)
+		log.Println("6 SearchAuthor in file", data)
+
 		b, err := json.Marshal(data)
+
+		var prettyJSON bytes.Buffer
+		error := json.Indent(&prettyJSON, b, "", "\t")
+		if error != nil {
+			log.Println("JSON parse error: ", error)
+			return
+		}
+
+		log.Println("7 SearchAuthor in file decode result:", string(prettyJSON.Bytes()))
+
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte(`{"error": "error marshalling data"}`))
@@ -51,9 +77,12 @@ func searchByAuthor(w http.ResponseWriter, r *http.Request) {
 		}
 		w.WriteHeader(http.StatusOK)
 		w.Write(b)
+		log.Println("End Tracing in SearchByAuthor Method in pathParams author")
 		return
 	}
+
 	w.WriteHeader(http.StatusNotFound)
+
 }
 
 func searchByBookName(w http.ResponseWriter, r *http.Request) {

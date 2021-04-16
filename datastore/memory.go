@@ -23,13 +23,19 @@ func (b *Books) Initialize() {
 }
 
 func (b *Books) SearchAuthor(author string, ratingOver, ratingBelow float64, limit, skip int) *[]*loader.BookData {
+	log.Println("6.1 Start tracing in SearchAuthor method")
+	log.Println("6.2 parameters:", author, ratingOver, ratingBelow, limit, skip)
+
 	ret := Filter(b.Store, func(v *loader.BookData) bool {
 		return strings.Contains(strings.ToLower(v.Authors), strings.ToLower(author)) && v.AverageRating > ratingOver && v.AverageRating < ratingBelow
 	})
+
+	log.Println("6.3 if limit exists do something")
 	if limit == 0 || limit > len(*ret) {
 		limit = len(*ret)
 	}
 	data := (*ret)[skip:limit]
+	log.Println("6.4 return SearchAuthor result", data)
 	return &data
 }
 
@@ -88,6 +94,9 @@ func (b *Books) UpdateBook(isbn string, book *loader.BookData) bool {
 
 func Filter(vs *[]*loader.BookData, f func(*loader.BookData) bool) *[]*loader.BookData {
 	vsf := make([]*loader.BookData, 0)
+	log.Println("6.2.1 in filter method vsf: ", vsf)
+	log.Println("6.2.2 in filter method vs: vs is all data from book data")
+	log.Println("6.2.3 in filter method f: f is function that we pass to filter before")
 	for _, v := range *vs {
 		if f(v) {
 			vsf = append(vsf, v)
